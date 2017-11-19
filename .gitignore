@@ -1,4 +1,8 @@
 *.so
+*.dll
+*.dylib
+*.dSYM/
+*.o
 
 *.swp
 cscope.*
