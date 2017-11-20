@@ -55,9 +55,22 @@ endif
 ###############################################################################
 
 MODULE_SRC= \
-  src/lv2vlc.c
+  src/lv2plugin.cc \
+  src/lv2pluginui.cc \
+  src/loadlib.c \
+  src/lv2ttl.cc \
+  src/lv2vlc.cc \
+  src/state.cc \
+  src/worker.cc
 
 MODULE_DEP= \
+  src/lv2plugin.h \
+  src/loadlib.h \
+  src/lv2desc.h \
+  src/lv2ttl.h \
+  src/ringbuffer.h \
+  src/uri_map.h \
+  src/worker.h
 
 LV2SRC= \
   local/lib/lilv/collections.c \
