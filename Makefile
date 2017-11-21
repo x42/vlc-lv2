@@ -65,7 +65,7 @@ endif
 MODULE_SRC= \
   src/lv2plugin.cc \
   src/lv2pluginui.cc \
-  src/loadlib.c \
+  src/loadlib.cc \
   src/lv2ttl.cc \
   src/lv2vlc.cc \
   src/state.cc \
