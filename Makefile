@@ -115,19 +115,19 @@ INCLUDES= \
 override CPPFLAGS += -I. -Isrc
 override CPPFLAGS += -Ilocal/include/ -Ilocal/lib/sord/ -Ilocal/lib/lilv/
 
-all: liblv2_plugin.so
+all: liblv2_plugin$(LIB_EXT)
 
 install: all
 	mkdir -p -- $(DESTDIR)$(plugindir)/misc
-	$(INSTALL) --mode 0755 liblv2_plugin.so $(DESTDIR)$(plugindir)/misc
+	$(INSTALL) --mode 0755 liblv2_plugin$(LIB_EXT) $(DESTDIR)$(plugindir)/misc
 
 uninstall:
-	rm -f $(plugindir)/misc/liblv2_plugin.so
+	rm -f $(plugindir)/misc/liblv2_plugin$(LIB_EXT)
 
 clean:
-	rm -f -- liblv2_plugin.so
+	rm -f -- liblv2_plugin$(LIB_EXT)
 
-liblv2_plugin.so: $(MODULE_SRC) $(MODULE_DEP) $(LV2SRC) $(INCLUDES) Makefile
+liblv2_plugin$(LIB_EXT): $(MODULE_SRC) $(MODULE_DEP) $(LV2SRC) $(INCLUDES) Makefile
 	$(CXX) $(CPPFLAGS) \
 	  $(CXXFLAGS) \
 	  -o $@ \
