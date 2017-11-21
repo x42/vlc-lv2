@@ -194,12 +194,11 @@ Open (vlc_object_t* obj)
 			free (p_sys);
 			return VLC_EGENERIC;
 		}
+		/* Wait for the ui thread. */
+		vlc_sem_wait (&p_sys->ready);
 	} else {
 		p_sys->run_ui = false;
 	}
-
-	/* Wait for the ui thread. */
-	vlc_sem_wait (&p_sys->ready);
 
 	/* allocate non-interleaved buffers */
 
