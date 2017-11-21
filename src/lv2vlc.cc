@@ -51,7 +51,7 @@ GUIThread (void *p_data)
 #if defined(_WIN32)
 	cfg.type = VOUT_WINDOW_TYPE_HWND;
 #elif defined(__APPLE__)
-	cfg.type = VOUT_WINDOW_TYPE_NSOBJECT
+	cfg.type = VOUT_WINDOW_TYPE_NSOBJECT;
 #else
 	cfg.type = VOUT_WINDOW_TYPE_XID;
 #endif

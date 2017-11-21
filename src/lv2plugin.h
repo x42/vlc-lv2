@@ -151,7 +151,7 @@ class LV2Plugin
 		};
 
 	private:
-		friend LV2PluginUI;
+		friend class LV2PluginUI;
 
 		LV2_Handle plugin_instance () const { return _plugin_instance; }
 		LV2_Descriptor const* plugin_dsp () const { return _plugin_dsp; }

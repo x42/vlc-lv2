@@ -32,7 +32,7 @@ ifeq ($(UNAME),Darwin)
   LIB_EXT=.dylib
   override LIBS     += -ldl
   override LDFLAGS  += -dynamiclib -headerpad_max_install_names -Bsymbolic
-  override CXXFLAGS += -fvisibility=hidden -fvisibility-inlines-hidden -fdata-sections -ffunction-sections -fPIC
+  override CXXFLAGS += -fvisibility=hidden -fvisibility-inlines-hidden -fdata-sections -ffunction-sections -fPIC -Wno-deprecated
 else
   STRIPFLAGS=-s
   override LDFLAGS += -Wl,-Bstatic -Wl,-Bdynamic -Wl,--as-needed -shared
