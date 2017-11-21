@@ -8,6 +8,10 @@ CXXFLAGS = -g -O2 -Wall -Wextra
 LDFLAGS =
 LIBS =
 
+ifeq ($(shell pkg-config --exists vlc-plugin || echo no), no)
+  $(error "VLC module SDK was not found, install libvlccore-dev")
+endif
+
 VLC_PLUGIN_CFLAGS := $(shell $(PKG_CONFIG) --cflags vlc-plugin)
 VLC_PLUGIN_LIBS := $(shell $(PKG_CONFIG) --libs vlc-plugin)
 
@@ -20,6 +24,10 @@ plugindir = $(libdir)/vlc/plugins
 override CPPFLAGS += -DMODULE_STRING=\"lv2\"
 override CXXFLAGS += $(VLC_PLUGIN_CFLAGS)
 override LIBS     += $(VLC_PLUGIN_LIBS)
+
+ifeq ($(shell pkg-config --atleast-version=3.0.0 vlc-plugin && echo yes), yes)
+  override CPPFLAGS += -DVLC3API
+endif
 
 override CXXFLAGS += -Wno-unused-parameter -Wno-deprecated-declarations
 

@@ -56,7 +56,11 @@ GUIThread (void *p_data)
 	cfg.type = VOUT_WINDOW_TYPE_XID;
 #endif
 
+#ifdef VLC3API
+	vout_window_t* window = vout_window_New (VLC_OBJECT (p_filter), "$window", &cfg, NULL);
+#else
 	vout_window_t* window = vout_window_New (VLC_OBJECT (p_filter), "$window", &cfg);
+#endif
 
 #if defined(_WIN32)
 	void* handle = (void*) window->handle.hwnd;
