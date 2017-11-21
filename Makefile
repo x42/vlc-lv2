@@ -8,7 +8,7 @@ CXXFLAGS = -g -O2 -Wall -Wextra
 LDFLAGS =
 LIBS =
 
-ifeq ($(shell pkg-config --exists vlc-plugin || echo no), no)
+ifeq ($(shell $(PKG_CONFIG) --exists vlc-plugin || echo no), no)
   $(error "VLC module SDK was not found, install libvlccore-dev")
 endif
 
@@ -25,7 +25,7 @@ override CPPFLAGS += -DMODULE_STRING=\"lv2\"
 override CXXFLAGS += $(VLC_PLUGIN_CFLAGS)
 override LIBS     += $(VLC_PLUGIN_LIBS)
 
-ifeq ($(shell pkg-config --atleast-version=3.0.0 vlc-plugin && echo yes), yes)
+ifeq ($(shell $(PKG_CONFIG) --atleast-version=3.0.0 vlc-plugin && echo yes), yes)
   override CPPFLAGS += -DVLC3API
 endif
 
@@ -38,28 +38,35 @@ ifeq ($(UNAME),Darwin)
   STRIPFLAGS=-x
   LIB_EXT=.dylib
   override LIBS     += -ldl
+  override CXXFLAGS += -fPIC -Wno-deprecated
+  override CXXFLAGS += -fvisibility=hidden -fvisibility-inlines-hidden -fdata-sections -ffunction-sections
   override LDFLAGS  += -dynamiclib -headerpad_max_install_names -Bsymbolic
-  override CXXFLAGS += -fvisibility=hidden -fvisibility-inlines-hidden -fdata-sections -ffunction-sections -fPIC -Wno-deprecated
 else
   STRIPFLAGS=-s
   override LDFLAGS += -Wl,-Bstatic -Wl,-Bdynamic -Wl,--as-needed -shared
   override LDFLAGS += -Wl,-no-undefined
   ifneq ($(XWIN),)
-    # cross-compile for windows
+    # cross-compile for windows with mingw, `make XWIN=x86_64-w64-mingw32`
     CC=$(XWIN)-gcc
     CXX=$(XWIN)-g++
     STRIP=$(XWIN)-strip
     LIB_EXT=.dll
-    override LIBS    +=-lm -lws2_32
-    override LDFLAGS += -static-libgcc -static-libstdc++
+    override LIBS     += -lm -lws2_32
+    override CXXFLAGS += -mstackrealign
+    override CXXFLAGS += -fvisibility=hidden -fdata-sections -ffunction-sections
+    override LDFLAGS  += -static-libgcc -static-libstdc++
+    override LDFLAGS  += -fvisibility=hidden -fdata-sections -ffunction-sections -Wl,--gc-sections -Wl,-O1 -Wl,--as-needed -Wl,--strip-all
   else
     # other unices (Linux, *BSD)
     LIB_EXT=.so
     override LIBS     += -ldl
     override CXXFLAGS += -fPIC
+    override CXXFLAGS += -fvisibility=hidden -fdata-sections -ffunction-sections
     override LDFLAGS  += -static-libgcc -static-libstdc++
+    override LDFLAGS  += -fvisibility=hidden -fdata-sections -ffunction-sections -Wl,--gc-sections -Wl,-O1 -Wl,--as-needed -Wl,--strip-all
   endif
 endif
+
 ###############################################################################
 
 MODULE_SRC= \
