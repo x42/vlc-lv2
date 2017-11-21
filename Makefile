@@ -19,7 +19,6 @@ plugindir = $(libdir)/vlc/plugins
 
 override CPPFLAGS += -DMODULE_STRING=\"lv2\"
 override CXXFLAGS += $(VLC_PLUGIN_CFLAGS)
-override LDFLAGS  += -Wl,-no-undefined,-z,defs
 override LIBS     += $(VLC_PLUGIN_LIBS)
 
 override CXXFLAGS += -Wno-unused-parameter -Wno-deprecated-declarations
@@ -36,6 +35,7 @@ ifeq ($(UNAME),Darwin)
 else
   STRIPFLAGS=-s
   override LDFLAGS += -Wl,-Bstatic -Wl,-Bdynamic -Wl,--as-needed -shared
+  override LDFLAGS += -Wl,-no-undefined
   ifneq ($(XWIN),)
     # cross-compile for windows
     CC=$(XWIN)-gcc
