@@ -23,6 +23,7 @@ Usage
 * Launch VLC, open the preferences (Tools > Preferences) and Show "All" settings (bottom left).
 * Under Audio -> Filters -> LV2, select a plugin.
   Note: currently the channel-count of the plugin needs to match the played file.
+* Under Audio -> Filters enable the LV2 module (may need a VLC restart to become active)
 * Play an audio-file
 
 
