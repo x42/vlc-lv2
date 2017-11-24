@@ -7,7 +7,7 @@ Still in development/experimental state.
 Install
 -------
 
-Compiling these plugin requires the VST Module SDK, gnu-make and a c-compiler
+Compiling this module requires the VLC Module SDK, gnu-make and a c-compiler
 (on debian/ubuntu: libvlccore-dev, build-essential packages).
 
 ```bash
