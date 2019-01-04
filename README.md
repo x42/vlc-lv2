@@ -12,9 +12,11 @@ Compiling this module requires the VLC Module SDK, gnu-make and a c-compiler
 
 ```bash
 git clone git://github.com/x42/vlc-lv2.git
-cd vlc-lv2.lv2
+cd vlc-lv2
 make
 sudo make plugindir=/usr/lib/`dpkg-architecture -q DEB_HOST_MULTIARCH`/vlc/plugins/ install
+## or to use the plugin from the source-dir:
+# sudo ln -s "`pwd`/liblv2_plugin.so" /usr/lib/`dpkg-architecture -q DEB_HOST_MULTIARCH`/vlc/plugins/misc/liblv2_plugin.so
 ```
 
 Usage
