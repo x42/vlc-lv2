@@ -42,9 +42,8 @@ GUIThread (void *p_data)
 
 	vout_window_cfg_t cfg;
 
+	cfg.is_fullscreen = false;
 	cfg.is_standalone = true;
-	cfg.x = 0;
-	cfg.y = 0;
 	cfg.width = 100;
 	cfg.height = 100;
 
@@ -52,6 +51,8 @@ GUIThread (void *p_data)
 	cfg.type = VOUT_WINDOW_TYPE_HWND;
 #elif defined(__APPLE__)
 	cfg.type = VOUT_WINDOW_TYPE_NSOBJECT;
+	cfg.x = 0;
+	cfg.y = 0;
 #else
 	cfg.type = VOUT_WINDOW_TYPE_XID;
 #endif

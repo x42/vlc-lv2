@@ -8,8 +8,8 @@ CXXFLAGS = -g -O2 -Wall -Wextra
 LDFLAGS =
 LIBS =
 
-ifeq ($(shell $(PKG_CONFIG) --exists vlc-plugin || echo no), no)
-  $(error "VLC module SDK was not found, install libvlccore-dev")
+ifeq ($(shell $(PKG_CONFIG) --atleast-version=3.0.0 vlc-plugin || echo no), no)
+  $(error "VLC module SDK > 3.0 was not found, install libvlccore-dev")
 endif
 
 VLC_PLUGIN_CFLAGS := $(shell $(PKG_CONFIG) --cflags vlc-plugin)
